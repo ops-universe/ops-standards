@@ -1,0 +1,3 @@
+# GitHub configuration checklist
+
+Maintainer actions: confirm visibility and license, set project description and homepage, apply relevant topics (ops-universe, ai-engineering, developer-tools plus project-specific topics), enable Wiki and Discussions, configure main rules and required CI, template flag and Pages where applicable. Enable private vulnerability reporting where supported. Verify links and permissions. Wiki source files are not a published Wiki. Public .github/profile/README.md powers the public organization profile. Never transfer existing repositories or alter DNS without separate approval.
