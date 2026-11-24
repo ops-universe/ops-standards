@@ -1,3 +1,3 @@
-# ops-standards
+# Ops Universe standards
 
-Ops Universe foundation — initial repository. See forthcoming scaffolding pull request.
+Version 0.1 — proposed foundation. See [master prompt](prompts/master.md), [engineering](engineering.md), [design](design.md), [release](release.md) and [GitHub setup](github-setup.md).
