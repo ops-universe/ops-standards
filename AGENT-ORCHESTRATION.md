@@ -39,3 +39,7 @@ Standards/handoff → isolated shared CI and workspace pilots → shared browser
 ## Schema test execution
 
 Run `python -m unittest discover -s tests -p 'test_handoff_schema.py'` in a reviewed environment with Python and jsonschema 4.26.0 already available. The 13 synthetic validation cases check schema shape and status prerequisites, not evidence truth. A reproducible, dependency-reviewed CI runner and independent consumer validation remain acceptance gates; no automatic package installation is authorized.
+
+## Receiving-agent preflight
+
+In the reviewed Python environment, run `python tools/validate_handoff.py handoff.json --repository ops-universe/dataOps --base FULL_BASE_SHA --head FULL_PR_HEAD_SHA --allow-path src/main.mjs`. Use `--head none` for an unstarted task; supply `--main FULL_MAIN_SHA` for post-merge claims. Exact allowed paths are repeated individually. Expected values must come from the supervisor's independently verified context, never from the submitted handoff. The command checks shape, identity, scope and claimed CI consistency, returns machine-readable error codes and never fetches URLs or authorizes a merge. It cannot verify that the listed files or CI references are complete, real or current. Use only caller-selected trusted local files. Independent GitHub checks remain mandatory.
