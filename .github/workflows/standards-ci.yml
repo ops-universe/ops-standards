@@ -19,4 +19,4 @@ jobs:
           .venv/bin/python -m pip install --no-deps --only-binary=:all: -r tests/requirements.lock
           .venv/bin/python -m pip check
       - name: Validate schema and synthetic cases
-        run: .venv/bin/python -m unittest discover -s tests -p 'test_handoff_schema.py' -v
+        run: .venv/bin/python -m unittest discover -s tests -p 'test_handoff_*.py' -v
