@@ -1,0 +1,22 @@
+name: Standards CI
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  schema-validation:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
+        with:
+          python-version: '3.12'
+      - name: Install pinned schema validator in isolated environment
+        run: |
+          python -m venv .venv
+          .venv/bin/python -m pip install --no-deps --only-binary=:all: -r tests/requirements.lock
+          .venv/bin/python -m pip check
+      - name: Validate schema and synthetic cases
+        run: .venv/bin/python -m unittest discover -s tests -p 'test_handoff_schema.py' -v
