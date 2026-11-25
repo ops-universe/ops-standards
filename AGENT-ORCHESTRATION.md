@@ -35,3 +35,7 @@ Score functional alignment (25), security (20), license (15), integration effort
 
 ## Initial dependency graph
 Standards/handoff → isolated shared CI and workspace pilots → shared browser/scaffold acceptance → scoped Wave 1 synthetic integration → Wave 2/3 readiness. Independent research can run concurrently. Do not reopen completed product phases without a concrete regression or authorized integration gap. Preserve offline/trusted-local boundaries. New product creation and public release remain gated.
+
+## Schema test execution
+
+Run `python -m unittest discover -s tests -p 'test_handoff_schema.py'` in a reviewed environment with Python and jsonschema 4.26.0 already available. The 13 synthetic validation cases check schema shape and status prerequisites, not evidence truth. A reproducible, dependency-reviewed CI runner and independent consumer validation remain acceptance gates; no automatic package installation is authorized.
