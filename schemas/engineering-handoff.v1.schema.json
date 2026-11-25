@@ -1,0 +1,385 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Ops Universe engineering handoff v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "taskId",
+    "agentRole",
+    "repository",
+    "baseSha",
+    "headSha",
+    "branch",
+    "status",
+    "objective",
+    "completedTasks",
+    "pendingTasks",
+    "changedFiles",
+    "dependencies",
+    "decisions",
+    "tests",
+    "securityFindings",
+    "knownLimitations",
+    "pullRequest",
+    "ciEvidence",
+    "blockers",
+    "nextAction",
+    "nextAgent",
+    "generatedAt"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "1.0.0"
+    },
+    "taskId": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4096
+    },
+    "agentRole": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4096
+    },
+    "repository": {
+      "type": "string",
+      "pattern": "^ops-universe/[A-Za-z0-9._-]+$"
+    },
+    "baseSha": {
+      "type": "string",
+      "pattern": "^(?:[0-9a-f]{40}|[0-9a-f]{64})$"
+    },
+    "headSha": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^(?:[0-9a-f]{40}|[0-9a-f]{64})$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "branch": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4096
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "status": {
+      "enum": [
+        "proposed",
+        "implementing",
+        "tested-locally",
+        "ready-for-review",
+        "ci-verified",
+        "merged",
+        "post-merge-verified",
+        "accepted",
+        "blocked",
+        "deferred"
+      ]
+    },
+    "objective": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4096
+    },
+    "completedTasks": {
+      "type": "array",
+      "maxItems": 1000,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 4096
+      }
+    },
+    "pendingTasks": {
+      "type": "array",
+      "maxItems": 1000,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 4096
+      }
+    },
+    "changedFiles": {
+      "type": "array",
+      "maxItems": 1000,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 4096
+      }
+    },
+    "dependencies": {
+      "type": "array",
+      "maxItems": 1000,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 4096
+      }
+    },
+    "decisions": {
+      "type": "array",
+      "maxItems": 1000,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 4096
+      }
+    },
+    "tests": {
+      "type": "array",
+      "maxItems": 1000,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "kind",
+          "status",
+          "revision",
+          "reference"
+        ],
+        "properties": {
+          "kind": {
+            "enum": [
+              "local-test",
+              "check-run",
+              "workflow-run",
+              "review",
+              "security",
+              "deployment",
+              "other"
+            ]
+          },
+          "status": {
+            "enum": [
+              "passed",
+              "failed",
+              "pending",
+              "unverified",
+              "not-applicable"
+            ]
+          },
+          "revision": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^(?:[0-9a-f]{40}|[0-9a-f]{64})$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "reference": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096
+          },
+          "summary": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096
+          }
+        }
+      }
+    },
+    "securityFindings": {
+      "type": "array",
+      "maxItems": 1000,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 4096
+      }
+    },
+    "knownLimitations": {
+      "type": "array",
+      "maxItems": 1000,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 4096
+      }
+    },
+    "pullRequest": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 1
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "ciEvidence": {
+      "type": "array",
+      "maxItems": 1000,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "kind",
+          "status",
+          "revision",
+          "reference"
+        ],
+        "properties": {
+          "kind": {
+            "enum": [
+              "local-test",
+              "check-run",
+              "workflow-run",
+              "review",
+              "security",
+              "deployment",
+              "other"
+            ]
+          },
+          "status": {
+            "enum": [
+              "passed",
+              "failed",
+              "pending",
+              "unverified",
+              "not-applicable"
+            ]
+          },
+          "revision": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^(?:[0-9a-f]{40}|[0-9a-f]{64})$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "reference": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096
+          },
+          "summary": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096
+          }
+        }
+      }
+    },
+    "blockers": {
+      "type": "array",
+      "maxItems": 1000,
+      "items": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 4096
+      }
+    },
+    "nextAction": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4096
+    },
+    "nextAgent": {
+      "anyOf": [
+        {
+          "type": "string",
+          "minLength": 1,
+          "maxLength": 4096
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "generatedAt": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "enum": [
+              "ready-for-review",
+              "ci-verified",
+              "merged",
+              "post-merge-verified",
+              "accepted"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "headSha": {
+            "type": "string",
+            "pattern": "^(?:[0-9a-f]{40}|[0-9a-f]{64})$"
+          },
+          "branch": {
+            "type": "string",
+            "minLength": 1,
+            "maxLength": 4096
+          },
+          "pullRequest": {
+            "type": "integer",
+            "minimum": 1
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "enum": [
+              "ci-verified",
+              "merged",
+              "post-merge-verified",
+              "accepted"
+            ]
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "ciEvidence": {
+            "minItems": 1
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "status": {
+            "const": "blocked"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "blockers": {
+            "minItems": 1
+          }
+        }
+      }
+    }
+  ]
+}
